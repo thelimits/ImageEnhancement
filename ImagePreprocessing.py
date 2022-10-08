@@ -39,7 +39,7 @@ class ImageEnhancement:
         # open_cv_image = np.array(img) 
         # open_cv_image = open_cv_image[:, :, ::-1].copy() 
 
-        list = ('.png', '.jpge', '.jpg')
+        list = ('.png', '.jpeg', '.jpg')
         self.Tr = True
         if self.Path.endswith(list):
             self.Tr = False
@@ -51,7 +51,7 @@ class ImageEnhancement:
 
     # methos ini digunakan untuk rescale image
     def __ScaleImage(self, images):
-        ranges = [x / 10 for x in range(0, 10)]
+        ranges = [x / 10 for x in range(0, 11)]
         if self.Rescale in ranges:
             Scale_image = self.Rescale
             width = int(images.shape[1] * Scale_image)
@@ -177,8 +177,12 @@ class ImageEnhancement:
                 response = requests.get(self.Path)
                 img = Image.open(BytesIO(response.content))
                 images = np.array(img) 
-                New_Image = images[:, :, ::-1].copy() 
-                OldImage = New_Image.copy() 
+                if len(images.shape) >= 3:
+                    New_Image = images[:, :, ::-1].copy() 
+                    OldImage = New_Image.copy() 
+                else:
+                    New_Image = images[:, :,].copy() 
+                    OldImage = New_Image.copy()
 
                 if self.Rescale:
                     New_Image = self.__ScaleImage(New_Image)
@@ -225,7 +229,9 @@ if __name__ == "__main__":
     # path = 'https://as2.ftcdn.net/v2/jpg/04/60/51/01/1000_F_460510116_NLB2FDELQMz6crIEB3vENfrNbxZvsdBc.jpg'
     # path = 'https://as1.ftcdn.net/v2/jpg/03/32/70/36/1000_F_332703631_eCep9lVzH5YlyIxFEpwFGHmO3n0Pp3uK.jpg'
     # path = 'https://st2.depositphotos.com/1005145/7740/i/450/depositphotos_77409796-stock-photo-mountain-flowers-in-a-sunny.jpg'
-    path = 'https://st2.depositphotos.com/4009139/6138/i/600/depositphotos_61383523-stock-photo-awesome-vintage-woman-looking-away.jpg'
+    # path = 'https://st2.depositphotos.com/4009139/6138/i/600/depositphotos_61383523-stock-photo-awesome-vintage-woman-looking-away.jpg'
+    # path = 'https://www.dynamsoft.com/blog/assets/images/uploads/2019/06/512px-Unequalized_Hawkes_Bay_NZ.jpg'
+    path = 'https://miro.medium.com/max/640/1*0Pkzt7ZWhqRzW7lAlOe2AA.jpeg'
 
-    ImageEnhancement(path, Smoothing=True, Gray_Scale=False, Equalize_Image=True, Rescale = 0.6, PlotShow=True).show()
+    ImageEnhancement(path, Smoothing=False, Gray_Scale=False, Equalize_Image=True, Rescale = 1, PlotShow=True).show()
     
