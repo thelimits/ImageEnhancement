@@ -134,7 +134,6 @@ class ImageEnhancement:
         teks1 = "Before"
         teks2 = "After"
         font = cv2.FONT_HERSHEY_SIMPLEX
-        fontScale = 0.8
         color = (0, 0, 0)
         thickness = 2
         if self.Gray_Scale:  
@@ -142,6 +141,7 @@ class ImageEnhancement:
             res = cv2.hconcat([Old, New_Image])
             w = res.shape[1]
             h = res.shape[0]
+            fontScale = self.Rescale
             mx = np.max(h)
             my = np.min(h)
             wx = np.max(w)
@@ -156,6 +156,7 @@ class ImageEnhancement:
             res = cv2.hconcat([Old, New_Image])
             w = res.shape[1]
             h = res.shape[0]
+            fontScale = self.Rescale
             mx = np.max(h)
             my = np.min(h)
             wx = np.max(w)
@@ -226,5 +227,5 @@ if __name__ == "__main__":
     # path = 'https://st2.depositphotos.com/1005145/7740/i/450/depositphotos_77409796-stock-photo-mountain-flowers-in-a-sunny.jpg'
     path = 'https://st2.depositphotos.com/4009139/6138/i/600/depositphotos_61383523-stock-photo-awesome-vintage-woman-looking-away.jpg'
 
-    ImageEnhancement(path, Smoothing=True, Gray_Scale=False, Equalize_Image=True, Rescale = 0.8, PlotShow=False).show()
+    ImageEnhancement(path, Smoothing=True, Gray_Scale=False, Equalize_Image=True, Rescale = 0.6, PlotShow=True).show()
     
